@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище KursovikModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Buy">
+          <Key>
+            <PropertyRef Name="ID_buy" />
+          </Key>
+          <Property Name="ID_buy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_tovar" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_worker" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Price" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID_category" />
+          </Key>
+          <Property Name="ID_category" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_category" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tovar">
+          <Key>
+            <PropertyRef Name="ID_tovar" />
+          </Key>
+          <Property Name="ID_tovar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="Provider" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateDelivery" Type="datetime" Nullable="false" />
+          <Property Name="DateEnd" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="ID_worker" />
+          </Key>
+          <Property Name="ID_worker" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Doljnost" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Buy_Tovar">
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Buy" Type="Self.Buy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovar">
+              <PropertyRef Name="ID_tovar" />
+            </Principal>
+            <Dependent Role="Buy">
+              <PropertyRef Name="ID_tovar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Buy_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Buy" Type="Self.Buy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="ID_worker" />
+            </Principal>
+            <Dependent Role="Buy">
+              <PropertyRef Name="ID_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID_category" />
+            </Principal>
+            <Dependent Role="Tovar">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище KursovikModelContainer">
+          <EntitySet Name="Buy" EntityType="Self.Buy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tovar" EntityType="Self.Tovar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Buy_Tovar" Association="Self.FK_Buy_Tovar">
+            <End Role="Tovar" EntitySet="Tovar" />
+            <End Role="Buy" EntitySet="Buy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Buy_Worker" Association="Self.FK_Buy_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Buy" EntitySet="Buy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_Category" Association="Self.FK_Tovar_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Tovar" EntitySet="Tovar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KursovikModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Buy">
+          <Key>
+            <PropertyRef Name="ID_buy" />
+          </Key>
+          <Property Name="ID_buy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_tovar" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_worker" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tovar" Relationship="Self.FK_Buy_Tovar" FromRole="Buy" ToRole="Tovar" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Buy_Worker" FromRole="Buy" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID_category" />
+          </Key>
+          <Property Name="ID_category" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_category" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tovar" Relationship="Self.FK_Tovar_Category" FromRole="Category" ToRole="Tovar" />
+        </EntityType>
+        <EntityType Name="Tovar">
+          <Key>
+            <PropertyRef Name="ID_tovar" />
+          </Key>
+          <Property Name="ID_tovar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="Provider" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateDelivery" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateEnd" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Buy" Relationship="Self.FK_Buy_Tovar" FromRole="Tovar" ToRole="Buy" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK_Tovar_Category" FromRole="Tovar" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="ID_worker" />
+          </Key>
+          <Property Name="ID_worker" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Doljnost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Buy" Relationship="Self.FK_Buy_Worker" FromRole="Worker" ToRole="Buy" />
+        </EntityType>
+        <Association Name="FK_Buy_Tovar">
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Buy" Type="Self.Buy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovar">
+              <PropertyRef Name="ID_tovar" />
+            </Principal>
+            <Dependent Role="Buy">
+              <PropertyRef Name="ID_tovar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Buy_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Buy" Type="Self.Buy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="ID_worker" />
+            </Principal>
+            <Dependent Role="Buy">
+              <PropertyRef Name="ID_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID_category" />
+            </Principal>
+            <Dependent Role="Tovar">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buy" EntityType="Self.Buy" />
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Tovar" EntityType="Self.Tovar" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" />
+          <AssociationSet Name="FK_Buy_Tovar" Association="Self.FK_Buy_Tovar">
+            <End Role="Tovar" EntitySet="Tovar" />
+            <End Role="Buy" EntitySet="Buy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Buy_Worker" Association="Self.FK_Buy_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Buy" EntitySet="Buy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_Category" Association="Self.FK_Tovar_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Tovar" EntitySet="Tovar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KursovikModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Buy">
+            <EntityTypeMapping TypeName="KursovikModel.Buy">
+              <MappingFragment StoreEntitySet="Buy">
+                <ScalarProperty Name="ID_buy" ColumnName="ID_buy" />
+                <ScalarProperty Name="ID_tovar" ColumnName="ID_tovar" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ID_worker" ColumnName="ID_worker" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="KursovikModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="ID_category" ColumnName="ID_category" />
+                <ScalarProperty Name="Name_category" ColumnName="Name_category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tovar">
+            <EntityTypeMapping TypeName="KursovikModel.Tovar">
+              <MappingFragment StoreEntitySet="Tovar">
+                <ScalarProperty Name="ID_tovar" ColumnName="ID_tovar" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DateDelivery" ColumnName="DateDelivery" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Worker">
+            <EntityTypeMapping TypeName="KursovikModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="ID_worker" ColumnName="ID_worker" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Doljnost" ColumnName="Doljnost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

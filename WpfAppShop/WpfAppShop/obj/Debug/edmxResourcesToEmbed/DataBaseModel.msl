@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище KursovikModelContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Buy">
+      <EntityTypeMapping TypeName="KursovikModel.Buy">
+        <MappingFragment StoreEntitySet="Buy">
+          <ScalarProperty Name="ID_buy" ColumnName="ID_buy" />
+          <ScalarProperty Name="ID_tovar" ColumnName="ID_tovar" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="ID_worker" ColumnName="ID_worker" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Category">
+      <EntityTypeMapping TypeName="KursovikModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="ID_category" ColumnName="ID_category" />
+          <ScalarProperty Name="Name_category" ColumnName="Name_category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tovar">
+      <EntityTypeMapping TypeName="KursovikModel.Tovar">
+        <MappingFragment StoreEntitySet="Tovar">
+          <ScalarProperty Name="ID_tovar" ColumnName="ID_tovar" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Provider" ColumnName="Provider" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="DateDelivery" ColumnName="DateDelivery" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Worker">
+      <EntityTypeMapping TypeName="KursovikModel.Worker">
+        <MappingFragment StoreEntitySet="Worker">
+          <ScalarProperty Name="ID_worker" ColumnName="ID_worker" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Doljnost" ColumnName="Doljnost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

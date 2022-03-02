@@ -1,0 +1,23 @@
+﻿<Window x:Class="WpfAppShop.DiagrammaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppShop"
+         xmlns:chart = "clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+        mc:Ignorable="d"
+        Title="DiagrammaWindow" Height="393.243" Width="768.919">
+    <Grid>
+        <WindowsFormsHost Margin="10,41,9.6,10">
+            <chart:Chart x:Name="chart">
+                <chart:Chart.Legends>
+                    <chart:Legend></chart:Legend>
+                </chart:Chart.Legends>
+            </chart:Chart>
+
+
+        </WindowsFormsHost>
+        <Button x:Name="button" Click="Button_Click" Content="Сформировать отчет" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="133"/>
+
+    </Grid>
+</Window>

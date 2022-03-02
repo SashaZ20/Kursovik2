@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KursovikModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Buy">
+    <Key>
+      <PropertyRef Name="ID_buy" />
+    </Key>
+    <Property Name="ID_buy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_tovar" Type="Int32" Nullable="false" />
+    <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_worker" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Tovar" Relationship="Self.FK_Buy_Tovar" FromRole="Buy" ToRole="Tovar" />
+    <NavigationProperty Name="Worker" Relationship="Self.FK_Buy_Worker" FromRole="Buy" ToRole="Worker" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="ID_category" />
+    </Key>
+    <Property Name="ID_category" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name_category" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Tovar" Relationship="Self.FK_Tovar_Category" FromRole="Category" ToRole="Tovar" />
+  </EntityType>
+  <EntityType Name="Tovar">
+    <Key>
+      <PropertyRef Name="ID_tovar" />
+    </Key>
+    <Property Name="ID_tovar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Category" Type="Int32" Nullable="false" />
+    <Property Name="Provider" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateDelivery" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateEnd" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Buy" Relationship="Self.FK_Buy_Tovar" FromRole="Tovar" ToRole="Buy" />
+    <NavigationProperty Name="Category1" Relationship="Self.FK_Tovar_Category" FromRole="Tovar" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="ID_worker" />
+    </Key>
+    <Property Name="ID_worker" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Doljnost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Buy" Relationship="Self.FK_Buy_Worker" FromRole="Worker" ToRole="Buy" />
+  </EntityType>
+  <Association Name="FK_Buy_Tovar">
+    <End Role="Tovar" Type="Self.Tovar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Buy" Type="Self.Buy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tovar">
+        <PropertyRef Name="ID_tovar" />
+      </Principal>
+      <Dependent Role="Buy">
+        <PropertyRef Name="ID_tovar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Buy_Worker">
+    <End Role="Worker" Type="Self.Worker" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Buy" Type="Self.Buy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Worker">
+        <PropertyRef Name="ID_worker" />
+      </Principal>
+      <Dependent Role="Buy">
+        <PropertyRef Name="ID_worker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tovar_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID_category" />
+      </Principal>
+      <Dependent Role="Tovar">
+        <PropertyRef Name="Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Buy" EntityType="Self.Buy" />
+    <EntitySet Name="Category" EntityType="Self.Category" />
+    <EntitySet Name="Tovar" EntityType="Self.Tovar" />
+    <EntitySet Name="Worker" EntityType="Self.Worker" />
+    <AssociationSet Name="FK_Buy_Tovar" Association="Self.FK_Buy_Tovar">
+      <End Role="Tovar" EntitySet="Tovar" />
+      <End Role="Buy" EntitySet="Buy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Buy_Worker" Association="Self.FK_Buy_Worker">
+      <End Role="Worker" EntitySet="Worker" />
+      <End Role="Buy" EntitySet="Buy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tovar_Category" Association="Self.FK_Tovar_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Tovar" EntitySet="Tovar" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
